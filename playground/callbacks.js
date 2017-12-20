@@ -1,6 +1,6 @@
 let getUser = (userid, callback) => {
   let user = {
-    id: id,
+    id: userid,
     name: 'shinno'
   };
   callback(user);
