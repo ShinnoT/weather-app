@@ -19,5 +19,5 @@ const argv = yargs
   .argv;
 
 
-encodedAddress(argv.address);
+geocodeAddress(argv.address);
 
