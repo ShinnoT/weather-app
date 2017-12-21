@@ -2,6 +2,9 @@
 const request = require('request');
 const yargs = require('yargs');
 
+// request local files
+const geocode = require('./geocode/geocode.js');
+
 const argv = yargs
   .options({
     a: {
@@ -38,7 +41,7 @@ request({
     console.log('unable to access google servers, sorry.');
   } else if (body.status === 'ZERO_RESULTS') {
     console.log('unable to find that address');
-  } else {
+  } else if (body.status === 'OK') {
     // logging address and long lat
     console.log(`Adress: ${body.results[0].formatted_address}`);
     let lat = body.results[0].geometry.location.lat;
