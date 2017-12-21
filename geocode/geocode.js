@@ -8,9 +8,8 @@ const request = require('request');
 // ?????????????????????????????????????????????????????????????????????????????????
 
 
-let geocodeAddress = (address) => {
+let geocodeAddress = (address, callback) => {
   let encodedAddress = encodeURIComponent(address);
-  // let encodedAddress = encodeURIComponent(argv.address);
   // there is also decodeURIComponent('blah blah');
 
   // https request to google maps API to fetch location and coordinates
@@ -28,15 +27,22 @@ let geocodeAddress = (address) => {
 
 
     if (error) {
-      console.log('unable to access google servers, sorry.');
+      callback('unable to access google servers, sorry.');
+      // console.log('unable to access google servers, sorry.');
     } else if (body.status === 'ZERO_RESULTS') {
-      console.log('unable to find that address');
+      callback('unable to find that address');
+      // console.log('unable to find that address');
     } else if (body.status === 'OK') {
+      callback(undefined, {
+        address: body.results[0].formatted_address,
+        latitude: body.results[0].geometry.location.lat,
+        longitude: body.results[0].geometry.location.lng
+      });
       // logging address and long lat
-      console.log(`Adress: ${body.results[0].formatted_address}`);
-      let lat = body.results[0].geometry.location.lat;
-      let long = body.results[0].geometry.location.lng;
-      console.log(`Latitude: ${lat}, Longitude: ${long}`);
+      // console.log(`Adress: ${body.results[0].formatted_address}`);
+      // let lat = body.results[0].geometry.location.lat;
+      // let long = body.results[0].geometry.location.lng;
+      // console.log(`Latitude: ${lat}, Longitude: ${long}`);
     }
 
   });

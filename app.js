@@ -1,5 +1,4 @@
 // request module
-const request = require('request');
 const yargs = require('yargs');
 
 // request local files
@@ -19,5 +18,12 @@ const argv = yargs
   .argv;
 
 
-geocodeAddress(argv.address);
+geocode.geocodeAddress(argv.address, (errorMessage, correctResult) => {
+  if (errorMessage) {
+    console.log(errorMessage);
+  } else {
+    console.log(JSON.stringify(correctResult));
+  }
+});
+// geocode.geocodeAddress(argv.a); ?????? does this work?
 
