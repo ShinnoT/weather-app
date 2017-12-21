@@ -2,13 +2,32 @@
 const request = require('request');
 const yargs = require('yargs');
 
-const argv = yargs.argv
+const argv = yargs
+  .options({
+    a: {
+      demand: true,
+      alias: 'address',
+      describe: 'address to fetch weather',
+      string: true
+    }
+  })
+  .help()
+  .alias('help', 'h')
+  .argv;
+
+
+let encodedAddress = encodeURIComponent(argv.a);
+// let encodedAddress = encodeURIComponent(argv.address);
+// there is also decodeURIComponent('blah blah');
+
 // https request to google maps API to fetch location and coordinates
 request({
-  url: 'https://maps.googleapis.com/maps/api/geocode/json?address=tokyo%20impact%20hub',
+  url: `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}`,
   json: true
 }, (error, response, body) => {
   console.log(error);
+  // error will reveal the local error (mistyped url, own computer not connected to internet, etc)
+  // body.statusCode will reveal the server error (404, 500, etc. which are problems with google for example and not local)
   console.log(response);
   console.log(body);
   // log the object prettier
@@ -21,5 +40,3 @@ request({
   console.log(`Latitude: ${lat}, Longitude: ${long}`);
 });
 
-// error will reveal the local error (mistyped url, own computer not connected to internet, etc)
-// body.statusCode will reveal the server error (404, 500, etc. which are problems with google for example and not local)
