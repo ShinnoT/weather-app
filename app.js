@@ -33,10 +33,18 @@ request({
   // log the object prettier
   // console.log(JSON.stringify(body, undefined, 2));
 
-  // logging address and long lat
-  console.log(`Adress: ${body.results[0].formatted_address}`);
-  let lat = body.results[0].geometry.location.lat;
-  let long = body.results[0].geometry.location.lng;
-  console.log(`Latitude: ${lat}, Longitude: ${long}`);
+
+  if (error) {
+    console.log('unable to access google servers, sorry.');
+  } else if (body.status === 'ZERO_RESULTS') {
+    console.log('unable to find that address');
+  } else {
+    // logging address and long lat
+    console.log(`Adress: ${body.results[0].formatted_address}`);
+    let lat = body.results[0].geometry.location.lat;
+    let long = body.results[0].geometry.location.lng;
+    console.log(`Latitude: ${lat}, Longitude: ${long}`);
+  }
+
 });
 
