@@ -50,5 +50,5 @@ let geocodeAddress = (address, callback) => {
 
 
 module.exports = {
-  encodedAddress
+  geocodeAddress
 }
