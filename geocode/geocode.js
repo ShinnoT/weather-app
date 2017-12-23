@@ -17,13 +17,13 @@ let geocodeAddress = (address, callback) => {
     url: `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}`,
     json: true
   }, (error, response, body) => {
-    console.log(error);
-    // error will reveal the local error (mistyped url, own computer not connected to internet, etc)
-    // body.statusCode will reveal the server error (404, 500, etc. which are problems with google for example and not local)
-    console.log(response);
-    console.log(body);
-    // log the object prettier
-    // console.log(JSON.stringify(body, undefined, 2));
+    // console.log(error);
+    // // error will reveal the local error (mistyped url, own computer not connected to internet, etc)
+    // // body.statusCode will reveal the server error (404, 500, etc. which are problems with google for example and not local)
+    // console.log(response);
+    // console.log(body);
+    // // log the object prettier
+    // // console.log(JSON.stringify(body, undefined, 2));
 
 
     if (error) {
@@ -32,6 +32,8 @@ let geocodeAddress = (address, callback) => {
     } else if (body.status === 'ZERO_RESULTS') {
       callback('unable to find that address');
       // console.log('unable to find that address');
+    } else if (body.status === 'INVALID_REQUEST') {
+      callback('invalid request sorry');
     } else if (body.status === 'OK') {
       callback(undefined, {
         address: body.results[0].formatted_address,
