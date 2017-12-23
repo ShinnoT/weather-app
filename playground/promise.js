@@ -10,6 +10,7 @@ let somePromise = new Promise((resolve, reject) => {
 //you can either resolve or reject ONLY once
 //you cant do both
 //you cant do more than once
+//thus no need to worry about multiple callbacks
 
 somePromise.then((message) => {
   console.log('success: ', message);
