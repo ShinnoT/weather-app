@@ -36,3 +36,10 @@ axios.get(geocodeUrl).then((response) => {
     console.log(error.message);
   }
 });
+
+
+//here we can add more features like allow user to set default time so that
+//if user does not put any arguments on terminal command
+//it will fetch temperature of default location for example
+//this can be dont by saving defualt to JSON and checking
+//if arv.address === '' then use default location from JSON file
